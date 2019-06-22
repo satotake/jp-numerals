@@ -57,7 +57,7 @@ describe('jpNumerals', () => {
     const n = jpNumerals(12_3456_7890)
     expect(n.toTuples()).toEqual([[12, '億'], [3456, '万'], [7890, '']])
 
-    expect(n.toArray()).toEqual([
+    expect(n.toNumerals()).toEqual([
       new Numeral(JpNumeralUnit.億, 12_3456_7890),
       new Numeral(JpNumeralUnit.万, 12_3456_7890),
       new Numeral(JpNumeralUnit.零, 12_3456_7890)
@@ -102,7 +102,7 @@ describe('jpNumerals', () => {
     const n = jpNumerals(12_3456_0000)
 
     expect(n_base.toTuples()).toEqual(n.toTuples())
-    expect(n_base.toArray()).toEqual(n.toArray())
+    expect(n_base.toNumerals()).toEqual(n.toNumerals())
     expect(n_base.toNumeralObjs()).toEqual(n.toNumeralObjs())
 
     expect(n_base.toString()).toEqual(n.toString())
