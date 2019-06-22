@@ -80,3 +80,5 @@ export const jpNumerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): 
     toNumber: () => raw
   }
 }
+
+export default jpNumerals
