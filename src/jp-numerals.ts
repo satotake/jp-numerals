@@ -73,7 +73,7 @@ export const jpNumerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): 
     .reverse()
 
   return {
-    toArray: () => numerals,
+    toNumerals: () => numerals,
     toTuples: () => numerals.map(numeral => numeral.toTuple()),
     toNumeralObjs: () => numerals.map(numeral => numeral.toNumeralObj()),
     toString: () => numerals.reduce((s, numeral) => `${s}${numeral}`, ''),

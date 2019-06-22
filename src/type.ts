@@ -30,7 +30,7 @@ export interface NumeralObj {
 }
 
 export interface Numerals {
-  toArray: () => Numeral[]
+  toNumerals: () => Numeral[]
   toTuples: () => [number, string][]
   toNumeralObjs: () => NumeralObj[]
   toString: () => string
