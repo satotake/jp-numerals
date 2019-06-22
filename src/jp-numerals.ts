@@ -55,7 +55,7 @@ export class NumeralZero extends Numeral {
   }
 }
 
-export const jpNumerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Numerals => {
+export const numerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Numerals => {
   // TODO(handle negative)
   if (n < 0) {
     throw Error('number must be string')
@@ -81,4 +81,4 @@ export const jpNumerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): 
   }
 }
 
-export default jpNumerals
+export default numerals
