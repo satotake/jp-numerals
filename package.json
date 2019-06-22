@@ -2,7 +2,12 @@
   "name": "jp-numerals",
   "version": "0.0.0-development",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "japanese",
+    "numerals",
+    "format",
+    "typescript"
+  ],
   "main": "dist/jp-numerals.umd.js",
   "module": "dist/jp-numerals.es5.js",
   "typings": "dist/types/jp-numerals.d.ts",
