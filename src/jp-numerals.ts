@@ -24,6 +24,10 @@ export class Numeral {
     return Math.floor(this.raw / Math.pow(10, this.rank * 4)) % Math.pow(10, 4)
   }
 
+  toTuple(): [number, string] {
+    const { character, digits } = this
+    return [digits, character]
+  }
   toString(): string {
     return `${this.digits}${this.character}`
   }
@@ -70,7 +74,7 @@ export const jpNumerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): 
 
   return {
     toArray: () => numerals,
-    toTuples: () => numerals.map(numeral => [numeral.digits, numeral.character]),
+    toTuples: () => numerals.map(numeral => numeral.toTuple()),
     toNumeralObjs: () => numerals.map(numeral => numeral.toNumeralObj()),
     toString: () => numerals.reduce((s, numeral) => `${s}${numeral}`, ''),
     toNumber: () => raw
