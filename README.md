@@ -28,7 +28,7 @@ const formatter = require('jp-numerals')
 const n = formatter.numerals(123456789)
 ```
 
-#### Numerals.toTuples
+#### Numerals.toString
 
 ```ts
 n.toString()
