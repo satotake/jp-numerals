@@ -1,4 +1,4 @@
-import { jpNumerals, Numeral, NumeralZero } from '../src/jp-numerals'
+import { numerals, Numeral, NumeralZero } from '../src/jp-numerals'
 import { JpNumeralUnit } from '../src/type'
 
 describe('Numeral Class', () => {
@@ -54,7 +54,7 @@ describe('class NumeralZero', () => {
 
 describe('jpNumerals', () => {
   it('can handle integer', () => {
-    const n = jpNumerals(12_3456_7890)
+    const n = numerals(12_3456_7890)
     expect(n.toTuples()).toEqual([[12, '億'], [3456, '万'], [7890, '']])
 
     expect(n.toNumerals()).toEqual([
@@ -89,17 +89,17 @@ describe('jpNumerals', () => {
   })
 
   it('can handle float', () => {
-    const n = jpNumerals(12_3456_7890.123)
+    const n = numerals(12_3456_7890.123)
     expect(n.toTuples()).toEqual([[12, '億'], [3456, '万'], [7890.123, '']])
   })
 
   it('throw error if number is negative', () => {
-    expect(() => jpNumerals(-12_3456_7890.123)).toThrow()
+    expect(() => numerals(-12_3456_7890.123)).toThrow()
   })
 
   it('can use base as option', () => {
-    const n_base = jpNumerals(12_3456, JpNumeralUnit.万)
-    const n = jpNumerals(12_3456_0000)
+    const n_base = numerals(12_3456, JpNumeralUnit.万)
+    const n = numerals(12_3456_0000)
 
     expect(n_base.toTuples()).toEqual(n.toTuples())
     expect(n_base.toNumerals()).toEqual(n.toNumerals())
