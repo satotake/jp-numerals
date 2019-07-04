@@ -1,5 +1,7 @@
 import { JpNumeralUnit, NumeralObj, Numerals } from './type'
 
+const log10 = (v: number) => Math.log(v) / Math.log(10)
+
 export class Numeral {
   raw: number
   unit: JpNumeralUnit
@@ -65,7 +67,7 @@ export const numerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Nu
   // in myriads
 
   const unitLen = Object.keys(JpNumeralUnit).length / 2
-  const numberLen = Math.ceil(Math.log10(raw) / 4)
+  const numberLen = Math.ceil(log10(raw) / 4)
   const len = Math.min(unitLen, numberLen)
   const numerals = new Array(len)
     .fill(NaN)
