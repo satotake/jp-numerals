@@ -34,5 +34,16 @@ export interface Numerals {
   toTuples: () => [number, string][]
   toNumeralObjs: () => NumeralObj[]
   toString: () => string
+  toAbsNumber: () => number
+
+  sign: () => Sign
+  toSignedNumerals: () => [Sign, Numeral[]]
+  toSignedTuples: () => [Sign, [number, string][]]
+  toSignedNumeralObjs: () => [Sign, NumeralObj[]]
+  toSignedString: () => string
   toNumber: () => number
+
+  round: (base: JpNumeralUnit) => Numerals
 }
+
+export type Sign = -1 | 1

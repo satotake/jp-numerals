@@ -86,6 +86,9 @@ describe('jpNumerals', () => {
 
     expect(n.toString()).toEqual('12億3456万7890')
     expect(n.toNumber()).toEqual(1234567890)
+
+    const n2 = numerals(1_0000_0000)
+    expect(n2.toString()).toEqual('1億')
   })
 
   it('can handle float', () => {
@@ -93,19 +96,64 @@ describe('jpNumerals', () => {
     expect(n.toTuples()).toEqual([[12, '億'], [3456, '万'], [7890.123, '']])
   })
 
-  it('throw error if number is negative', () => {
-    expect(() => numerals(-12_3456_7890.123)).toThrow()
+  it('can handle negative integer', () => {
+    const n = numerals(-12_3456_789_0)
+    const p = numerals(+12_3456_789_0)
+
+    expect(n.sign()).toEqual(-1)
+
+    expect(n.toAbsNumber()).toEqual(12_3456_789_0)
+    expect(n.toNumber()).toEqual(-12_3456_789_0)
+    expect(n.toSignedString()).toEqual('-12億3456万7890')
+    expect(p.toSignedString()).toEqual('12億3456万7890')
+    expect(n.toSignedTuples()).toEqual([-1, [[12, '億'], [3456, '万'], [7890, '']]])
+    expect(n.toSignedNumerals()).toEqual([-1, [
+      new Numeral(JpNumeralUnit.億, 12_3456_7890),
+      new Numeral(JpNumeralUnit.万, 12_3456_7890),
+      new Numeral(JpNumeralUnit.零, 12_3456_7890)
+    ]])
+    expect(n.toSignedNumeralObjs()).toEqual([-1, [
+      {
+        unit: JpNumeralUnit.億,
+        character: '億',
+        rank: 2,
+        digits: 12
+      },
+      {
+        unit: JpNumeralUnit.万,
+        character: '万',
+        rank: 1,
+        digits: 3456
+      },
+      {
+        unit: JpNumeralUnit.零,
+        character: '',
+        rank: 0,
+        digits: 7890
+      }
+    ]])
   })
 
   it('can use base as option', () => {
-    const n_base = numerals(12_3456, JpNumeralUnit.万)
+    const nBase = numerals(12_3456, JpNumeralUnit.万)
     const n = numerals(12_3456_0000)
 
-    expect(n_base.toTuples()).toEqual(n.toTuples())
-    expect(n_base.toNumerals()).toEqual(n.toNumerals())
-    expect(n_base.toNumeralObjs()).toEqual(n.toNumeralObjs())
+    expect(nBase.toTuples()).toEqual(n.toTuples())
+    expect(nBase.toNumerals()).toEqual(n.toNumerals())
+    expect(nBase.toNumeralObjs()).toEqual(n.toNumeralObjs())
 
-    expect(n_base.toString()).toEqual(n.toString())
-    expect(n_base.toNumber()).toEqual(1234560000)
+    expect(nBase.toString()).toEqual(n.toString())
+    expect(nBase.toNumber()).toEqual(1234560000)
+  })
+
+  it('can round number with specified unit', () => {
+    const positive = numerals(12_3456_7890)
+    const negative = numerals(-9999_9999_9999)
+
+    expect(positive.round(JpNumeralUnit.万).toString()).toEqual('12億3457万')
+    expect(positive.round(JpNumeralUnit.億).toString()).toEqual('12億')
+
+    expect(negative.round(JpNumeralUnit.万).toSignedString()).toEqual('-1兆')
+    expect(negative.round(JpNumeralUnit.億).toSignedString()).toEqual('-1兆')
   })
 })
