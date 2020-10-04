@@ -1,4 +1,5 @@
 import { JpNumeralUnit, NumeralObj, Numerals } from './type'
+export { JpNumeralUnit, NumeralObj, Numerals }
 
 const log10 = (v: number) => Math.log(v) / Math.log(10)
 
