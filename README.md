@@ -76,6 +76,18 @@ n.toNumerals()
 ]
 ```
 
+#### Numerals.round 
+- round: : (base: JpNumeralUnit) => Numerals
+
+```ts
+import {numerals} from 'jp-numerals';
+const n = numerals(12_3456_7890)
+
+n.round(JpNumeralUnit.億).toString()
+// => returns
+'12億'
+
+```
 
 #### Signed methods
 

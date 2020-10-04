@@ -3,6 +3,7 @@ export { JpNumeralUnit, NumeralObj, Numerals, Sign }
 
 const EPSILON = 1e-10
 const log10 = (v: number) => Math.log(v) / Math.log(10)
+// for IE
 
 export class Numeral {
   raw: number
@@ -67,24 +68,26 @@ export const numerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Nu
   const unitLen = Object.keys(JpNumeralUnit).length / 2 // maximum unit
   const numberLen = Math.ceil(log10(abs) / 4 + EPSILON)
   const len = Math.min(unitLen, numberLen)
-  const numerals = new Array(len)
+  const nums = new Array(len)
     .fill(NaN)
     .map((_, i) => (i === 0 ? new NumeralZero(i, abs) : new Numeral(i, abs)))
     .reverse()
 
   return {
-    toNumerals: () => numerals,
-    toTuples: () => numerals.map(numeral => numeral.toTuple()),
-    toNumeralObjs: () => numerals.map(numeral => numeral.toNumeralObj()),
-    toString: () => numerals.reduce((s, numeral) => `${s}${numeral}`, ''),
+    toNumerals: () => nums,
+    toTuples: () => nums.map(numeral => numeral.toTuple()),
+    toNumeralObjs: () => nums.map(numeral => numeral.toNumeralObj()),
+    toString: () => nums.reduce((s, numeral) => `${s}${numeral}`, ''),
     toAbsNumber: () => abs,
 
     sign: () => sign,
-    toSignedNumerals: () => [sign, numerals],
-    toSignedTuples: () => [sign, numerals.map(numeral => numeral.toTuple())],
-    toSignedNumeralObjs: () => [sign, numerals.map(numeral => numeral.toNumeralObj())],
-    toSignedString: () => numerals.reduce((s, numeral) => `${s}${numeral}`, sign === -1 ? '-' : ''),
-    toNumber: () => sign * abs
+    toSignedNumerals: () => [sign, nums],
+    toSignedTuples: () => [sign, nums.map(numeral => numeral.toTuple())],
+    toSignedNumeralObjs: () => [sign, nums.map(numeral => numeral.toNumeralObj())],
+    toSignedString: () => nums.reduce((s, numeral) => `${s}${numeral}`, sign === -1 ? '-' : ''),
+    toNumber: () => sign * abs,
+
+    round: (base: JpNumeralUnit) => numerals(sign * Math.round(abs / Math.pow(10, base * 4)), base)
   }
 }
 

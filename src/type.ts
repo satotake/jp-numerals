@@ -42,6 +42,8 @@ export interface Numerals {
   toSignedNumeralObjs: () => [Sign, NumeralObj[]]
   toSignedString: () => string
   toNumber: () => number
+
+  round: (base: JpNumeralUnit) => Numerals
 }
 
 export type Sign = -1 | 1

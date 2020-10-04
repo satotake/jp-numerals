@@ -145,4 +145,15 @@ describe('jpNumerals', () => {
     expect(nBase.toString()).toEqual(n.toString())
     expect(nBase.toNumber()).toEqual(1234560000)
   })
+
+  it('can round number with specified unit', () => {
+    const positive = numerals(12_3456_7890)
+    const negative = numerals(-9999_9999_9999)
+
+    expect(positive.round(JpNumeralUnit.万).toString()).toEqual('12億3457万')
+    expect(positive.round(JpNumeralUnit.億).toString()).toEqual('12億')
+
+    expect(negative.round(JpNumeralUnit.万).toSignedString()).toEqual('-1兆')
+    expect(negative.round(JpNumeralUnit.億).toSignedString()).toEqual('-1兆')
+  })
 })
