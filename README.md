@@ -75,6 +75,37 @@ n.toNumerals()
   NumeralZero { raw: 123456789, unit: 0 } 
 ]
 ```
+
+
+#### Signed methods
+
+- sign: () => Sign
+- toSignedNumerals: () => [Sign, Numeral[]]
+- toSignedTuples: () => [Sign, [number, string][]]
+- toSignedNumeralObjs: () => [Sign, NumeralObj[]]
+- toSignedString: () => string
+
+```ts
+import {numerals} from 'jp-numerals';
+const n = numerals(-123456789)
+
+n.sign()
+// => returns -1
+
+n.toSignedString()
+// => returns '-1億2345万6789'
+
+n.toSignedNumeralObjs()
+// => returns
+[
+  -1,
+  [
+    { unit: 2, character: '億', rank: 2, digits: 1 },
+    { unit: 1, character: '万', rank: 1, digits: 2345 },
+    { unit: 0, character: '', rank: 0, digits: 6789 } 
+  ]
+]
+```
 ---
 
 This library is based on [typescript-library-starter](https://github.com/alexjoverm/typescript-library-starter/)

@@ -1,5 +1,5 @@
-import { JpNumeralUnit, NumeralObj, Numerals } from './type'
-export { JpNumeralUnit, NumeralObj, Numerals }
+import { JpNumeralUnit, NumeralObj, Numerals, Sign } from './type'
+export { JpNumeralUnit, NumeralObj, Numerals, Sign }
 
 const log10 = (v: number) => Math.log(v) / Math.log(10)
 
@@ -59,20 +59,16 @@ export class NumeralZero extends Numeral {
 }
 
 export const numerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Numerals => {
-  // TODO(handle negative)
-  if (n < 0) {
-    throw Error('number must be string')
-  }
-
-  const raw = Math.abs(n) * Math.pow(10, base * 4)
+  const sign = n < 0 ? -1 : 1
+  const abs = Math.abs(n) * Math.pow(10, base * 4)
   // in myriads
 
   const unitLen = Object.keys(JpNumeralUnit).length / 2
-  const numberLen = Math.ceil(log10(raw) / 4)
+  const numberLen = Math.ceil(log10(abs) / 4)
   const len = Math.min(unitLen, numberLen)
   const numerals = new Array(len)
     .fill(NaN)
-    .map((_, i) => (i === 0 ? new NumeralZero(i, raw) : new Numeral(i, raw)))
+    .map((_, i) => (i === 0 ? new NumeralZero(i, abs) : new Numeral(i, abs)))
     .reverse()
 
   return {
@@ -80,7 +76,14 @@ export const numerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Nu
     toTuples: () => numerals.map(numeral => numeral.toTuple()),
     toNumeralObjs: () => numerals.map(numeral => numeral.toNumeralObj()),
     toString: () => numerals.reduce((s, numeral) => `${s}${numeral}`, ''),
-    toNumber: () => raw
+    toAbsNumber: () => abs,
+
+    sign: () => sign,
+    toSignedNumerals: () => [sign, numerals],
+    toSignedTuples: () => [sign, numerals.map(numeral => numeral.toTuple())],
+    toSignedNumeralObjs: () => [sign, numerals.map(numeral => numeral.toNumeralObj())],
+    toSignedString: () => numerals.reduce((s, numeral) => `${s}${numeral}`, sign === -1 ? '-' : ''),
+    toNumber: () => sign * abs
   }
 }
 
