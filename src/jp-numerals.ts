@@ -32,7 +32,7 @@ export class Numeral {
     return [digits, character]
   }
   toString(): string {
-    return `${this.digits}${this.character}`
+    return this.digits === 0 ? '' : `${this.digits}${this.character}`
   }
   toNumeralObj(): NumeralObj {
     const { unit, character, rank, digits } = this
