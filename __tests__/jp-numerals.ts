@@ -98,12 +98,14 @@ describe('jpNumerals', () => {
 
   it('can handle negative integer', () => {
     const n = numerals(-12_3456_789_0)
+    const p = numerals(+12_3456_789_0)
 
     expect(n.sign()).toEqual(-1)
 
     expect(n.toAbsNumber()).toEqual(12_3456_789_0)
     expect(n.toNumber()).toEqual(-12_3456_789_0)
     expect(n.toSignedString()).toEqual('-12億3456万7890')
+    expect(p.toSignedString()).toEqual('12億3456万7890')
     expect(n.toSignedTuples()).toEqual([-1, [[12, '億'], [3456, '万'], [7890, '']]])
     expect(n.toSignedNumerals()).toEqual([-1, [
       new Numeral(JpNumeralUnit.億, 12_3456_7890),
