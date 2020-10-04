@@ -86,6 +86,9 @@ describe('jpNumerals', () => {
 
     expect(n.toString()).toEqual('12億3456万7890')
     expect(n.toNumber()).toEqual(1234567890)
+
+    const n2 = numerals(1_0000_0000)
+    expect(n2.toString()).toEqual('1億')
   })
 
   it('can handle float', () => {

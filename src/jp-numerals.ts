@@ -1,6 +1,7 @@
 import { JpNumeralUnit, NumeralObj, Numerals, Sign } from './type'
 export { JpNumeralUnit, NumeralObj, Numerals, Sign }
 
+const EPSILON = 1e-10
 const log10 = (v: number) => Math.log(v) / Math.log(10)
 
 export class Numeral {
@@ -63,8 +64,8 @@ export const numerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Nu
   const abs = Math.abs(n) * Math.pow(10, base * 4)
   // in myriads
 
-  const unitLen = Object.keys(JpNumeralUnit).length / 2
-  const numberLen = Math.ceil(log10(abs) / 4)
+  const unitLen = Object.keys(JpNumeralUnit).length / 2 // maximum unit
+  const numberLen = Math.ceil(log10(abs) / 4 + EPSILON)
   const len = Math.min(unitLen, numberLen)
   const numerals = new Array(len)
     .fill(NaN)
