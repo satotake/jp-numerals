@@ -126,8 +126,8 @@ n.toSignedNumeralObjs()
 
 ``` shell
 npm test
-npm test:watch
-npm test:prod
+npm run test:watch
+npm run test:prod
 ```
 
 ### commit
