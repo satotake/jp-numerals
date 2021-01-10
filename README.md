@@ -118,6 +118,30 @@ n.toSignedNumeralObjs()
   ]
 ]
 ```
+
+
+## Development
+
+### test
+
+``` shell
+npm test
+npm run test:watch
+npm run test:prod
+```
+
+### commit
+
+Do not use regular `git commit` for semantic release.
+
+Instead:
+
+``` shell
+npm run commit
+```
+
 ---
+
+
 
 This library is based on [typescript-library-starter](https://github.com/alexjoverm/typescript-library-starter/)

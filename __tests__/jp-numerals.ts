@@ -134,6 +134,31 @@ describe('jpNumerals', () => {
     ]])
   })
 
+  it('can handle negative float', () => {
+    const nearlyZero = numerals(-0.04)
+
+    expect(nearlyZero.sign()).toEqual(-1)
+
+    expect(nearlyZero.toAbsNumber()).toEqual(0.04)
+    expect(nearlyZero.toNumber()).toEqual(-0.04)
+    expect(nearlyZero.toSignedString()).toEqual('-0.04')
+    expect(nearlyZero.toSignedTuples()).toEqual([-1, [[0.04, '']]])
+    expect(nearlyZero.toSignedNumerals()).toEqual([-1, [
+      new Numeral(JpNumeralUnit.零, 0.04)
+    ]])
+    expect(nearlyZero.toSignedNumeralObjs()).toEqual([-1, [
+      {
+        unit: JpNumeralUnit.零,
+        character: '',
+        rank: 0,
+        digits: 0.04
+      }
+    ]])
+
+    const n = numerals(-12_3456_7890.123)
+    expect(n.toSignedTuples()).toEqual([-1, [[12, '億'], [3456, '万'], [7890.123, '']]])
+  })
+
   it('can use base as option', () => {
     const nBase = numerals(12_3456, JpNumeralUnit.万)
     const n = numerals(12_3456_0000)

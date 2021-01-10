@@ -68,7 +68,7 @@ export const numerals = (n: number, base: JpNumeralUnit = JpNumeralUnit.零): Nu
   const unitLen = Object.keys(JpNumeralUnit).length / 2 // maximum unit
   const numberLen = Math.ceil(log10(abs) / 4 + EPSILON)
   const len = Math.min(unitLen, numberLen)
-  const nums = new Array(len)
+  const nums = new Array(Math.max(1, len))
     .fill(NaN)
     .map((_, i) => (i === 0 ? new NumeralZero(i, abs) : new Numeral(i, abs)))
     .reverse()
